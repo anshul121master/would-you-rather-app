@@ -36,7 +36,8 @@ class PollQuestion extends Component {
   render() {
     if (this.props.invalidId) return <ErrorPage />;
     const { optionSelected, answerSubmitted } = this.state;
-    const { optionOne, optionTwo } = this.props;
+    const { optionOne, optionTwo, answered } = this.props;
+    if( answered !== null )  return <Redirect to='/' />;
     let redirectTo = `/question/${this.props.id}/results`;
     if (answerSubmitted === true) {
       return <Redirect to={redirectTo} />;
@@ -86,13 +87,19 @@ class PollQuestion extends Component {
 function mapStateToProps({ authUser, questions }, ownProps) {
   const { id } = ownProps;
   if (id in questions) {
+    let answered = null;
     const optionOne = questions[id].optionOne.text;
     const optionTwo = questions[id].optionTwo.text;
+    const optionOneVotes = questions[id].optionOne.votes;
+    const optionTwoVotes = questions[id].optionTwo.votes;
+    if (optionOneVotes.includes(authUser) || optionTwoVotes.includes(authUser))
+      answered = "You answered";
     return {
       optionOne,
       optionTwo,
       authUser,
-      id
+      id,
+      answered
     };
   } else
     return {

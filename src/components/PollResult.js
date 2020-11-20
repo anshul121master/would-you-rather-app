@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import ErrorPage from "./ErrorPage";
+import { Redirect } from "react-router-dom";
 
 class PollResult extends Component {
   render() {
@@ -12,6 +13,7 @@ class PollResult extends Component {
       optionTwoVotesCount,
       answeredOption
     } = this.props;
+    if( answeredOption === null ) return <Redirect to='/' />
     let totalVotes = optionOneVotesCount + optionTwoVotesCount;
     return (
       <div className="pollResult">
@@ -40,6 +42,7 @@ class PollResult extends Component {
   }
 }
 
+//write logic to check whether authUser has answered to this ques id
 function mapStateToProps({ authUser, questions }, ownProps) {
     const { id } = ownProps;
     if (id in questions) {
@@ -52,7 +55,10 @@ function mapStateToProps({ authUser, questions }, ownProps) {
       let answeredOption = "";
       if (optionOneVotes.includes(authUser))
         answeredOption = "You answered OptionOne";
-      else answeredOption = "You answered OptionTwo";
+      else if (optionTwoVotes.includes(authUser))
+        answeredOption = "You answered OptionTwo";
+      else
+        answeredOption = null
       return {
         optionOneText,
         optionTwoText,
