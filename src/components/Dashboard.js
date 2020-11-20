@@ -41,7 +41,7 @@ class Dashboard extends Component {
                 );
                 return (
                   <li key={ques.id}>
-                    <UserCard id={ques.id}>{pollTeaser}</UserCard>
+                    <UserCard text='would you rather' id={ques.id}>{pollTeaser}</UserCard>
                   </li>
                 );
               })
@@ -51,7 +51,7 @@ class Dashboard extends Component {
                 );
                 return (
                   <li key={ques.id}>
-                    <UserCard id={ques.id}>{pollTeaser}</UserCard>
+                    <UserCard text='would you rather' id={ques.id}>{pollTeaser}</UserCard>
                   </li>
                 );
               })}

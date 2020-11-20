@@ -12,7 +12,6 @@ class PollTeaser extends Component {
 
     return (
       <div className="question-info">
-      <h4>Would you rather:</h4>
         <p className="center">{text}</p>
         <Link to={viewPollLink} className="center">
           <button className="btn btn-outline-primary">

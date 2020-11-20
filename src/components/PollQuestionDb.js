@@ -1,15 +1,32 @@
 import React, { Component } from "react";
-import PollQuestion from './PollQuestion'
-import UserCard from './UserCard'
+import { connect } from "react-redux";
+import PollQuestion from "./PollQuestion";
+import UserCard from "./UserCard";
+import { Redirect } from "react-router-dom";
 
-class PollQuestionDb extends Component{
-    render(){
-        const { id } = this.props.match.params
-        const pollQuestion = <PollQuestion id={id} />
-        return(
-            <UserCard id={id}>{pollQuestion}</UserCard>
-        )
-    }
+class PollQuestionDb extends Component {
+  render() {
+    const { authUser } = this.props;
+    if (authUser === null)
+      return (
+        <Redirect
+          to={{
+            pathname: "/login",
+            state: { from: this.props.location }
+          }}
+        />
+      );
+
+    const { id } = this.props.match.params;
+    const pollQuestion = <PollQuestion id={id} />;
+    return <UserCard text='would you rather' id={id}>{pollQuestion}</UserCard>;
+  }
 }
 
-export default PollQuestionDb
+function mapStateToProps({ authUser }) {
+  return {
+    authUser
+  };
+}
+
+export default connect(mapStateToProps)(PollQuestionDb);

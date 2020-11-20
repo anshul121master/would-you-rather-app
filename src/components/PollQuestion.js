@@ -35,14 +35,9 @@ class PollQuestion extends Component {
   };
   render() {
     if (this.props.invalidId) return <ErrorPage />;
-    const { authUser } = this.props;
-    let redirectTo = `/question/${this.props.id}/results`;
-    if (authUser === null) {
-      redirectTo = "/login";
-      return <Redirect to={redirectTo} />;
-    }
     const { optionSelected, answerSubmitted } = this.state;
     const { optionOne, optionTwo } = this.props;
+    let redirectTo = `/question/${this.props.id}/results`;
     if (answerSubmitted === true) {
       return <Redirect to={redirectTo} />;
     }

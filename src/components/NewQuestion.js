@@ -52,8 +52,8 @@ class NewQuestion extends Component{
         if(submit) return <Redirect to="/" />;
         
         return(
-            
             <div className='newQuesForm'>
+            <h3>Would You Rather:</h3>
             <form onSubmit={this.handleSubmit}>
             <label htmlFor="optionOne">Please enter Option One</label>
             <input type="text" name="optionOne" id="optionOne" onChange={this.handleChange} />

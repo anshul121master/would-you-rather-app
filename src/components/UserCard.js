@@ -7,8 +7,13 @@ class UserCard extends Component {
     if (this.props.invalidId) return <ErrorPage />;
     const { username, avatar } = this.props;
     return (
+     
       <div className="userCard">
-        <h3 className="username">{username}</h3>
+      { this.props.text === undefined ? 
+        <h4 className="username">{username}</h4> :
+        this.props.text.includes('would')?  <h4 className="username">{username} asks {this.props.text}</h4> :
+        <h4 className="username">{this.props.text} {username} </h4> 
+    }
         <div className='usercard-container'>
         <img src={avatar} alt="userimage" />
         {this.props.children}
@@ -39,6 +44,7 @@ function mapStateToProps({ questions, users }, ownProps) {
   }
 
   return {
+    text: ownProps.text,
     username,
     avatar
   };

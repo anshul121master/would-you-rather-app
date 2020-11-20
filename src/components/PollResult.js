@@ -1,17 +1,10 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Redirect } from "react-router-dom";
 import ErrorPage from "./ErrorPage";
 
 class PollResult extends Component {
   render() {
     if(this.props.invalidId) return <ErrorPage />
-    let p = this.props;
-    if ("authUser" in p) {
-      const redirectTo = "/login";
-      return <Redirect to={redirectTo} />;
-    }
-
     const {
       optionOneText,
       optionTwoText,
@@ -48,7 +41,6 @@ class PollResult extends Component {
 }
 
 function mapStateToProps({ authUser, questions }, ownProps) {
-  if (authUser !== null) {
     const { id } = ownProps;
     if (id in questions) {
       const optionOneText = questions[id].optionOne.text;
@@ -72,10 +64,6 @@ function mapStateToProps({ authUser, questions }, ownProps) {
       return {
         invalidId: true
       };
-  } else
-    return {
-      authUser
-    };
 }
 
 export default connect(mapStateToProps)(PollResult);
