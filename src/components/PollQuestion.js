@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { handleAnswerPoll } from "../actions/shared";
 import { Redirect } from "react-router-dom";
-import ErrorPage from "./ErrorPage";
 
 class PollQuestion extends Component {
   state = {
@@ -13,11 +12,9 @@ class PollQuestion extends Component {
     let value = event.target.value;
     this.setState({
       optionSelected: value,
-      answerSubmitted: false
     });
   };
   handlePollSubmit = event => {
-    //debugger
     event.preventDefault();
     const { dispatch, authUser, id } = this.props;
     const answer = this.state.optionSelected;
@@ -28,17 +25,14 @@ class PollQuestion extends Component {
         answer
       })
     );
-    this.setState(currentState => ({
-      optionSelected: currentState.optionSelected,
+    this.setState({
       answerSubmitted: true
-    }));
+    });
   };
   render() {
-    if (this.props.invalidId) return <ErrorPage />;
     const { optionSelected, answerSubmitted } = this.state;
-    const { optionOne, optionTwo, answered } = this.props;
-    if( answered !== null )  return <Redirect to='/' />;
-    let redirectTo = `/question/${this.props.id}/results`;
+    const { optionOne, optionTwo } = this.props;
+    let redirectTo = `/question/${this.props.id}`;
     if (answerSubmitted === true) {
       return <Redirect to={redirectTo} />;
     }
@@ -86,25 +80,14 @@ class PollQuestion extends Component {
 
 function mapStateToProps({ authUser, questions }, ownProps) {
   const { id } = ownProps;
-  if (id in questions) {
-    let answered = null;
     const optionOne = questions[id].optionOne.text;
     const optionTwo = questions[id].optionTwo.text;
-    const optionOneVotes = questions[id].optionOne.votes;
-    const optionTwoVotes = questions[id].optionTwo.votes;
-    if (optionOneVotes.includes(authUser) || optionTwoVotes.includes(authUser))
-      answered = "You answered";
     return {
       optionOne,
       optionTwo,
       authUser,
-      id,
-      answered
+      id
     };
-  } else
-    return {
-      invalidId: true
-    };
-}
+  } 
 
 export default connect(mapStateToProps)(PollQuestion);

@@ -4,11 +4,8 @@ import { Link } from 'react-router-dom'
 
 class PollTeaser extends Component {
   render() {
-    let { id, answered, text } = this.props;
-    let viewPollLink = "";
-
-    if (answered) viewPollLink = `/question/${id}/results`;
-    else viewPollLink = `/question/${id}`;
+    let { id, text } = this.props;
+    let viewPollLink = `/question/${id}`;
 
     return (
       <div className="question-info">
@@ -24,11 +21,10 @@ class PollTeaser extends Component {
 }
 
 function mapStateToProps({ questions }, ownProps) {
-  const { id, answered } = ownProps
+  const { id } = ownProps
   const text = `${questions[id].optionOne.text} OR ${questions[id].optionTwo.text}`;
   return {
     id,
-    answered,
     text
   };
 }

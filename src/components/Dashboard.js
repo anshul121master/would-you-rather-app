@@ -36,22 +36,20 @@ class Dashboard extends Component {
         <ul>
           {showAnswered
             ? this.props.answered.map(ques => {
-                let pollTeaser = (
-                  <PollTeaser id={ques.id} answered={showAnswered} />
-                );
+                let pollTeaser = <PollTeaser id={ques.id} />
+              
                 return (
                   <li key={ques.id}>
-                    <UserCard text='would you rather' id={ques.id}>{pollTeaser}</UserCard>
+                    <UserCard componentName='PollTeaser' id={ques.id}>{pollTeaser}</UserCard>
                   </li>
                 );
               })
             : this.props.unanswered.map(ques => {
-                let pollTeaser = (
-                  <PollTeaser id={ques.id} answered={showAnswered} />
-                );
+                let pollTeaser = <PollTeaser id={ques.id} />
+
                 return (
                   <li key={ques.id}>
-                    <UserCard text='would you rather' id={ques.id}>{pollTeaser}</UserCard>
+                    <UserCard componentName='PollTeaser' id={ques.id}>{pollTeaser}</UserCard>
                   </li>
                 );
               })}

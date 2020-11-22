@@ -1,18 +1,22 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import Leaderboard from './Leaderboard'
-import UserCard from './UserCard'
+import Leaderboard from "./Leaderboard";
+import UserCard from "./UserCard";
 import { Redirect } from "react-router-dom";
 
 class LeaderboardDb extends Component {
   render() {
-    const { authUser } = this.props
-    if(authUser === null){
-     const redirectTo = "/login";
-      return <Redirect to={{
-        pathname: redirectTo,
-        state: { from: this.props.location },
-      }} />;
+    const { authUser } = this.props;
+    if (authUser === null) {
+      const redirectTo = "/login";
+      return (
+        <Redirect
+          to={{
+            pathname: redirectTo,
+            state: { from: this.props.location }
+          }}
+        />
+      );
     }
     const { users } = this.props;
 
@@ -41,7 +45,9 @@ class LeaderboardDb extends Component {
             let leaderboard = <Leaderboard userObj={userObj} />;
             return (
               <li key={userObj.userId}>
-                <UserCard userId={userObj.userId}>{leaderboard}</UserCard>
+                <UserCard componentName="leaderboard" userId={userObj.userId}>
+                  {leaderboard}
+                </UserCard>
               </li>
             );
           })}
@@ -52,11 +58,10 @@ class LeaderboardDb extends Component {
 }
 
 function mapStateToProps({ authUser, users }) {
-    return {
-      authUser,
-      users
-    };
-  }
- 
+  return {
+    authUser,
+    users
+  };
+}
 
 export default connect(mapStateToProps)(LeaderboardDb);

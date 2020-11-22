@@ -2,8 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { loadData } from "../actions/shared";
 import Dashboard from "./Dashboard";
-import PollQuestionDb from "./PollQuestionDb";
-import PollResultDb from "./PollResultDb";
+import PollDashboard from "./PollDashboard";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import LeaderboardDb from "./LeaderboardDb";
 import Login from "./Login";
@@ -29,12 +28,7 @@ class App extends Component {
                   <Route
                     path="/question/:id"
                     exact
-                    component={PollQuestionDb}
-                  />
-                  <Route
-                    path="/question/:id/results"
-                    exact
-                    component={PollResultDb}
+                    component={PollDashboard}
                   />
                   <Route path="/login" exact component={Login} />
                   <Route path="/logout" exact component={Logout} />
