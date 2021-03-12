@@ -8,6 +8,7 @@ class PollQuestion extends Component {
     optionSelected: "",
     answerSubmitted: false
   };
+
   handleInputChange = event => {
     let value = event.target.value;
     this.setState({
@@ -29,6 +30,25 @@ class PollQuestion extends Component {
       answerSubmitted: true
     });
   };
+
+  styles={
+    text:{
+      color:"rgb(121, 184, 243)", fontWeight:"bold", fontSize:"18px"
+    },
+    btnStyle:{
+      marginTop:10,
+      padding:8,
+      borderRadius:5,
+      border:"2px solid white",
+      color:"white",
+      backgroundColor:"rgb(66, 82, 101)",
+      ':hover':{
+        backgroundColor:"white",
+        color:"#017a9b",
+        border:"2px solid #017a9b"
+      }
+    }
+  }
   render() {
     const { optionSelected, answerSubmitted } = this.state;
     const { optionOne, optionTwo } = this.props;
@@ -48,7 +68,7 @@ class PollQuestion extends Component {
               value="optionOne"
               onChange={this.handleInputChange}
             />
-            <label className="form-check-label" htmlFor="optionOne">
+            <label style={this.styles.text} className="form-check-label" htmlFor="optionOne">
               {optionOne}
             </label>
           </div>
@@ -61,12 +81,11 @@ class PollQuestion extends Component {
               value="optionTwo"
               onChange={this.handleInputChange}
             />
-            <label className="form-check-label" htmlFor="optionTwo">
+            <label style={this.styles.text} className="form-check-label" htmlFor="optionTwo">
               {optionTwo}
             </label>
           </div>
-          <button
-            className="btn btn-outline-primary m-15-top"
+          <button  style={this.styles.btnStyle}
             type="submit"
             disabled={optionSelected === ""}
           >

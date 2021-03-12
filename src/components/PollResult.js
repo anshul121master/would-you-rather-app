@@ -2,6 +2,11 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 
 class PollResult extends Component {
+  styles={
+    text:{
+      color:"#79b8f3"
+    }
+  }
   render() {
     const {
       optionOneText,
@@ -13,26 +18,26 @@ class PollResult extends Component {
     let totalVotes = optionOneVotesCount + optionTwoVotesCount;
     return (
       <div className="pollResult">
-        <h3 className="results">Poll Results</h3>
+        <h3 style={this.styles.text} className="results">Poll Results</h3>
         <div className="optionBox">
-          <h5 className="optionText">{optionOneText}</h5>
-          <p className="noOfVotes">
+          <h5 style={this.styles.text} className="optionText">{optionOneText}</h5>
+          <p style={this.styles.text} className="noOfVotes">
             {optionOneVotesCount} out of {totalVotes}
           </p>
-          <p className="votePercent">
+          <p style={this.styles.text} className="votePercent">
             Percentage: {(optionOneVotesCount / totalVotes) * 100}
           </p>
         </div>
         <div className="optionBox">
-          <h5 className="optionText">{optionTwoText}</h5>
-          <p className="noOfVotes">
+          <h5 style={this.styles.text} className="optionText">{optionTwoText}</h5>
+          <p style={this.styles.text} className="noOfVotes">
             {optionTwoVotesCount} out of {totalVotes}
           </p>
-          <p className="votePercent">
+          <p style={this.styles.text} className="votePercent">
             Percentage: {(optionTwoVotesCount / totalVotes) * 100}
           </p>
         </div>
-        <h4 className="answeredOption">{answeredOption}</h4>
+        <h4 style={{color:"orange"}}className="answeredOption">{answeredOption}</h4>
       </div>
     );
   }

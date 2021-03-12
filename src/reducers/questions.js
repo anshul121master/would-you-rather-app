@@ -1,5 +1,5 @@
-import { RECEIVE_QUESTIONS } from "../actions/questions";
-import { ANSWER_POLL, ADD_QUESTION } from "../actions/shared";
+import { RECEIVE_QUESTIONS, ADD_QUESTION } from "../actions/questions";
+import { ANSWER_POLL } from "../actions/shared";
 
 export default function questions(state = {}, action) {
   switch (action.type) {
@@ -9,27 +9,16 @@ export default function questions(state = {}, action) {
         ...action.questions
       };
     case ANSWER_POLL:
-      const { authedUser, qid, answer } = action.details; //details={authedUser: johndow, qid: xxx, answer: optionTwo}
+      const { updatedQuestion } = action.res;
       return {
         ...state,
-        [qid]: {
-          ...state[qid],
-          [answer]: {
-            ...state[qid][answer],
-            votes: state[qid][answer].votes.concat([
-              authedUser
-            ])
-          }
-        }
+        [updatedQuestion._id]: updatedQuestion
       };
       case ADD_QUESTION:
+        const { newQuestion } = action.res;
         return{
           ...state,
-          [action.question.id]:{
-            ...action.question
-          }
-           
-          
+          [newQuestion._id]: newQuestion
         }
     default:
       return state;

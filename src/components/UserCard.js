@@ -5,16 +5,16 @@ class UserCard extends Component {
   render() {
     const { username, avatar } = this.props;
     return (
-      <div className="userCard">
+      <div style={{backgroundColor: "rgb(66, 82, 101)", margin:20, borderRadius:5}} className="userCard">
         {this.props.componentName === "PollTeaser" ||
         this.props.componentName === "PollQuestion" ? (
-          <h4 className="username">{username} asks would you rather</h4>
+          <h4 style={{color:"white", padding:10}} className="username">{username} asks would you rather</h4>
         ) : this.props.componentName === "PollResult" ? (
-          <h4 className="username">Added By {username}</h4>
+          <h4 style={{color:"white", padding:10}} className="username">Added By {username}</h4>
         ) : (
-          <h4 className="username">{username}</h4>
+          <h4 style={{color:"white", padding:10}} className="username">{username}</h4>
         )}
-        <div className="usercard-container">
+        <div style={{padding:10}} className="usercard-container">
           <img src={avatar} alt="userimage" />
           {this.props.children}
         </div>

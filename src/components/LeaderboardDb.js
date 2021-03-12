@@ -40,11 +40,11 @@ class LeaderboardDb extends Component {
 
     return (
       <div>
-        <ul>
+        <ul style={{paddingLeft:0}}>
           {usersInfo.map(userObj => {
             let leaderboard = <Leaderboard userObj={userObj} />;
             return (
-              <li key={userObj.userId}>
+              <li style={{listStyle:"none"}} key={userObj.userId}>
                 <UserCard componentName="leaderboard" userId={userObj.userId}>
                   {leaderboard}
                 </UserCard>

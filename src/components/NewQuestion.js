@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { handleAddQuestion } from "../actions/shared";
+import { handleAddQuestion } from "../actions/questions";
 import { Redirect } from "react-router-dom";
 
 class NewQuestion extends Component {
@@ -35,8 +35,8 @@ class NewQuestion extends Component {
     dispatch(
       handleAddQuestion({
         author,
-        optionOneText,
-        optionTwoText
+        optionOne:optionOneText,
+        optionTwo:optionTwoText
       })
     );
     this.setState({
@@ -59,23 +59,27 @@ class NewQuestion extends Component {
     if (submit) return <Redirect to="/" />;
 
     return (
-      <div className="newQuesForm">
-        <h3>Would You Rather:</h3>
+      <div style={{marginLeft:"auto"}}>
+        <h4>Would You Rather:</h4>
         <form onSubmit={this.handleSubmit}>
           <label htmlFor="optionOne">Please enter Option One</label>
           <input
+            required
             type="text"
             name="optionOne"
             id="optionOne"
             onChange={this.handleChange}
           />
+          <br />
           <label htmlFor="optionTwo">Please enter Option Two</label>
           <input
+            required
             type="text"
             name="optionTwo"
             id="optionTwo"
             onChange={this.handleChange}
           />
+          <br />
           <input type="submit" value="Submit" />
         </form>
       </div>

@@ -1,5 +1,6 @@
 import { RECEIVE_USERS } from "../actions/users";
-import { ANSWER_POLL, ADD_QUESTION } from "../actions/shared";
+import { ANSWER_POLL } from "../actions/shared";
+import { ADD_QUESTION } from "../actions/questions";
 
 export default function users(state = {}, action) {
   switch (action.type) {
@@ -9,27 +10,16 @@ export default function users(state = {}, action) {
         ...action.users
       };
     case ANSWER_POLL:
-      const { authedUser, qid, answer } = action.details;
+      const { updatedUser } = action.res;
       return {
         ...state,
-        [authedUser]: {
-          ...state[authedUser],
-          answers: {
-            ...state[authedUser].answers,
-            [qid]: answer
-          }
-        }
+        [updatedUser.id]: updatedUser
       };
     case ADD_QUESTION:
+      const user = action.res.updatedUser;
       return {
         ...state,
-        [action.question.author]: {
-          ...state[action.question.author],
-          questions: 
-            state[action.question.author].questions.concat([action.question.id]),  //state[johndoe]
-            
-          
-        }
+        [user.id]: user
       };
     default:
       return state;

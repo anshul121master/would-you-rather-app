@@ -4,12 +4,13 @@ import { receiveUsers } from "../actions/users";
 import { setLoading } from "../actions/loading";
 
 export const ANSWER_POLL = "ANSWER_POLL";
-export const ADD_QUESTION = "ADD_QUESTION";
 
 let loading = false;
 export function loadData() {
   return dispatch => {
     return getData().then(({ users, questions }) => {
+      console.log(users)
+      console.log(questions)
       dispatch(receiveQuestions(questions));
       dispatch(receiveUsers(users));
       dispatch(setLoading(loading));
@@ -17,36 +18,23 @@ export function loadData() {
   };
 }
 
-function answerPoll(details) {
+function answerPoll(res) {
   return {
     type: ANSWER_POLL,
-    details
+    res
   };
 }
 
 export function handleAnswerPoll(details) {
+  //details:{authedUser, qid, answer}
   return dispatch => {
-    dispatch(answerPoll(details));
-    return saveQuestionAnswer(details).catch(e => {
+    //dispatch(answerPoll(details));
+    return saveQuestionAnswer(details).then(res => {
+      dispatch(answerPoll(res));
+    }).catch(e => {
       console.warn("Error in Answering Poll", e);
-      dispatch(answerPoll(details));
       alert("There was an error Answering a Poll. Try Again.");
     });
   };
 }
 
-function addQuestion(question){
-  return{
-    type: ADD_QUESTION,
-    question
-  }
-}
-
-export function handleAddQuestion(details) {
-  //{optionOneText, optionTwoText, author}
-  return dispatch => {
-    return saveQuestion(details).then(question => {
-      dispatch(addQuestion(question));
-    });
-  };
-}
